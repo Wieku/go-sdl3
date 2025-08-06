@@ -297,7 +297,7 @@ SDL_ClearSurface,"Clear a surface with a specific color, with floating point pre
 ",https://wiki.libsdl.org/SDL3/SDL_ClearSurface
 SDL_ClickTrayEntry,"Simulate a click on a tray entry.
 ",https://wiki.libsdl.org/SDL3/SDL_ClickTrayEntry
-SDL_ClipboardCleanupCallback,"Callback function that will be called when the clipboard is cleared, or new data is set.
+SDL_ClipboardCleanupCallback,"Callback function that will be called when the clipboard is cleared, or when new data is set.
 ",https://wiki.libsdl.org/SDL3/SDL_ClipboardCleanupCallback
 SDL_ClipboardDataCallback,"Callback function that will be called when data for the specified mime-type is requested by the OS.
 ",https://wiki.libsdl.org/SDL3/SDL_ClipboardDataCallback
@@ -1035,7 +1035,7 @@ SDL_GetCameraSupportedFormats,"Get the list of native formats/sizes a camera sup
 ",https://wiki.libsdl.org/SDL3/SDL_GetCameraSupportedFormats
 SDL_GetCameras,"Get a list of currently connected camera devices.
 ",https://wiki.libsdl.org/SDL3/SDL_GetCameras
-SDL_GetClipboardData,"Get the data from clipboard for a given mime type.
+SDL_GetClipboardData,"Get the data from the clipboard for a given mime type.
 ",https://wiki.libsdl.org/SDL3/SDL_GetClipboardData
 SDL_GetClipboardMimeTypes,"Retrieve the list of mime types available in the clipboard.
 ",https://wiki.libsdl.org/SDL3/SDL_GetClipboardMimeTypes
@@ -4297,12 +4297,26 @@ SDL_zeroa,"Clear an array's memory to zero.
 ",https://wiki.libsdl.org/SDL3/SDL_zeroa
 SDL_zerop,"Clear an object's memory to zero, using a pointer.
 ",https://wiki.libsdl.org/SDL3/SDL_zerop
+IMG_AddAnimationFrame,"Add a frame to a stream of images being saved.
+",https://wiki.libsdl.org/SDL3_image/IMG_AddAnimationFrame
 IMG_Animation,"Animated image support
 ",https://wiki.libsdl.org/SDL3_image/IMG_Animation
+IMG_AnimationStream,"An object representing a stream of images being saved.
+",https://wiki.libsdl.org/SDL3_image/IMG_AnimationStream
+IMG_CloseAnimationStream,"Close an animation stream, finishing any encoding.
+",https://wiki.libsdl.org/SDL3_image/IMG_CloseAnimationStream
+IMG_CreateAnimationStream,"Create an animation stream and save it to a file.
+",https://wiki.libsdl.org/SDL3_image/IMG_CreateAnimationStream
+IMG_CreateAnimationStreamWithProperties,"Create an animation stream with the specified properties.
+",https://wiki.libsdl.org/SDL3_image/IMG_CreateAnimationStreamWithProperties
+IMG_CreateAnimationStream_IO,"Create an animation stream and save it to an IOStream.
+",https://wiki.libsdl.org/SDL3_image/IMG_CreateAnimationStream_IO
 IMG_FreeAnimation,"Dispose of an [IMG_Animation](IMG_Animation) and free its resources.
 ",https://wiki.libsdl.org/SDL3_image/IMG_FreeAnimation
 IMG_Load,"Load an image from a filesystem path into a software surface.
 ",https://wiki.libsdl.org/SDL3_image/IMG_Load
+IMG_LoadAPNGAnimation_IO,"Load an APNG animation directly from an SDL_IOStream.
+",https://wiki.libsdl.org/SDL3_image/IMG_LoadAPNGAnimation_IO
 IMG_LoadAVIF_IO,"Load a AVIF image directly.
 ",https://wiki.libsdl.org/SDL3_image/IMG_LoadAVIF_IO
 IMG_LoadAnimation,"Load an animation from a file.
@@ -4371,6 +4385,10 @@ IMG_SaveAVIF,"Save an SDL_Surface into a AVIF image file.
 ",https://wiki.libsdl.org/SDL3_image/IMG_SaveAVIF
 IMG_SaveAVIF_IO,"Save an SDL_Surface into AVIF image data, via an SDL_IOStream.
 ",https://wiki.libsdl.org/SDL3_image/IMG_SaveAVIF_IO
+IMG_SaveGIF,"Save an SDL_Surface into a GIF image file.
+",https://wiki.libsdl.org/SDL3_image/IMG_SaveGIF
+IMG_SaveGIF_IO,"Save an SDL_Surface into GIF image data, via an SDL_IOStream.
+",https://wiki.libsdl.org/SDL3_image/IMG_SaveGIF_IO
 IMG_SaveJPG,"Save an SDL_Surface into a JPEG image file.
 ",https://wiki.libsdl.org/SDL3_image/IMG_SaveJPG
 IMG_SaveJPG_IO,"Save an SDL_Surface into JPEG image data, via an SDL_IOStream.
@@ -4379,6 +4397,14 @@ IMG_SavePNG,"Save an SDL_Surface into a PNG image file.
 ",https://wiki.libsdl.org/SDL3_image/IMG_SavePNG
 IMG_SavePNG_IO,"Save an SDL_Surface into PNG image data, via an SDL_IOStream.
 ",https://wiki.libsdl.org/SDL3_image/IMG_SavePNG_IO
+IMG_SaveTGA,"Save an SDL_Surface into a TGA image file.
+",https://wiki.libsdl.org/SDL3_image/IMG_SaveTGA
+IMG_SaveTGA_IO,"Save an SDL_Surface into TGA image data, via an SDL_IOStream.
+",https://wiki.libsdl.org/SDL3_image/IMG_SaveTGA_IO
+IMG_SaveWEBP,"Save an SDL_Surface into a WEBP image file.
+",https://wiki.libsdl.org/SDL3_image/IMG_SaveWEBP
+IMG_SaveWEBP_IO,"Save an SDL_Surface into WEBP image data, via an SDL_IOStream.
+",https://wiki.libsdl.org/SDL3_image/IMG_SaveWEBP_IO
 IMG_Version,"This function gets the version of the dynamically linked SDL_image library.
 ",https://wiki.libsdl.org/SDL3_image/IMG_Version
 IMG_isAVIF,"Detect AVIF image data on a readable/seekable SDL_IOStream.

@@ -881,6 +881,16 @@ var (
 	//puregogen:function symbol=SDL_PutAudioStreamData
 	iPutAudioStreamData func(stream *AudioStream, buf uintptr, len int32) bool
 
+	// SDL_PutAudioStreamDataNoCopy => Add external data to an audio stream without copying it.
+	//
+	//puregogen:function symbol=SDL_PutAudioStreamDataNoCopy
+	iPutAudioStreamDataNoCopy func(stream *AudioStream, buf uintptr, len int32, callback AudioStreamDataCompleteCallback, userdata uintptr) bool
+
+	// SDL_PutAudioStreamPlanarData => Add data to the stream with each channel in a separate array.
+	//
+	//puregogen:function symbol=SDL_PutAudioStreamPlanarData
+	iPutAudioStreamPlanarData func(stream *AudioStream, channel_buffers *uintptr, num_channels int32, num_samples int32) bool
+
 	// SDL_GetAudioStreamData => Get converted/resampled data from the stream.
 	//
 	//puregogen:function symbol=SDL_GetAudioStreamData
@@ -1039,12 +1049,12 @@ var (
 	// SDL_GetRGB => Get RGB values from a pixel in the specified format.
 	//
 	//puregogen:function symbol=SDL_GetRGB
-	iGetRGB func(pixel uint32, format *PixelFormatDetails, palette *Palette, r *uint8, g *uint8, b *uint8)
+	iGetRGB func(pixelvalue uint32, format *PixelFormatDetails, palette *Palette, r *uint8, g *uint8, b *uint8)
 
 	// SDL_GetRGBA => Get RGBA values from a pixel in the specified format.
 	//
 	//puregogen:function symbol=SDL_GetRGBA
-	iGetRGBA func(pixel uint32, format *PixelFormatDetails, palette *Palette, r *uint8, g *uint8, b *uint8, a *uint8)
+	iGetRGBA func(pixelvalue uint32, format *PixelFormatDetails, palette *Palette, r *uint8, g *uint8, b *uint8, a *uint8)
 
 	// SDL_HasRectIntersection => Determine whether two rectangles intersect.
 	//
@@ -1506,7 +1516,7 @@ var (
 	//puregogen:function symbol=SDL_ClearClipboardData
 	iClearClipboardData func() bool
 
-	// SDL_GetClipboardData => Get the data from clipboard for a given mime type.
+	// SDL_GetClipboardData => Get the data from the clipboard for a given mime type.
 	// SDL_free() must be called on the returned pointer.
 	//
 	//puregogen:function symbol=SDL_GetClipboardData
@@ -2041,6 +2051,26 @@ var (
 	//
 	//puregogen:function symbol=SDL_FlashWindow
 	iFlashWindow func(window *Window, operation FlashOperation) bool
+
+	// SDL_SetWindowProgressState => Sets the state of the progress bar for the given windowâs taskbar icon.
+	//
+	//puregogen:function symbol=SDL_SetWindowProgressState
+	iSetWindowProgressState func(window *Window, state ProgressState) bool
+
+	// SDL_GetWindowProgressState => Get the state of the progress bar for the given windowâs taskbar icon.
+	//
+	//puregogen:function symbol=SDL_GetWindowProgressState
+	iGetWindowProgressState func(window *Window) ProgressState
+
+	// SDL_SetWindowProgressValue => Sets the value of the progress bar for the given windowâs taskbar icon.
+	//
+	//puregogen:function symbol=SDL_SetWindowProgressValue
+	iSetWindowProgressValue func(window *Window, value float32) bool
+
+	// SDL_GetWindowProgressValue => Get the value of the progress bar for the given windowâs taskbar icon.
+	//
+	//puregogen:function symbol=SDL_GetWindowProgressValue
+	iGetWindowProgressValue func(window *Window) float32
 
 	// SDL_DestroyWindow => Destroy a window.
 	//
@@ -3097,6 +3127,11 @@ var (
 	//puregogen:function symbol=SDL_WarpMouseGlobal
 	iWarpMouseGlobal func(x float32, y float32) bool
 
+	// SDL_SetRelativeMouseTransform => Set a user-defined function by which to transform relative mouse inputs.
+	//
+	//puregogen:function symbol=SDL_SetRelativeMouseTransform
+	iSetRelativeMouseTransform func(callback MouseMotionTransformCallback, userdata uintptr) bool
+
 	// SDL_SetWindowRelativeMouseMode => Set relative mouse mode for a window.
 	//
 	//puregogen:function symbol=SDL_SetWindowRelativeMouseMode
@@ -3279,6 +3314,11 @@ var (
 	//puregogen:function symbol=SDL_GetWindowFromEvent
 	iGetWindowFromEvent func(event *Event) *Window
 
+	// SDL_GetEventDescription => Generate a human-readable description of an event.
+	//
+	//puregogen:function symbol=SDL_GetEventDescription
+	iGetEventDescription func(event *Event, buf string, buflen int32) int32
+
 	// SDL_GetBasePath => Get the directory where the application was run from.
 	//
 	//puregogen:function symbol=SDL_GetBasePath
@@ -3381,6 +3421,11 @@ var (
 	//
 	//puregogen:function symbol=SDL_GetGPUShaderFormats
 	iGetGPUShaderFormats func(device *GPUDevice) GPUShaderFormat
+
+	// SDL_GetGPUDeviceProperties => Get the properties associated with a GPU device.
+	//
+	//puregogen:function symbol=SDL_GetGPUDeviceProperties
+	iGetGPUDeviceProperties func(device *GPUDevice) PropertiesID
 
 	// SDL_CreateGPUGraphicsPipeline => Creates a pipeline object to be used in a graphics workflow.
 	//
@@ -3866,32 +3911,32 @@ var (
 	// SDL_CreateHapticEffect => Create a new haptic effect on a specified device.
 	//
 	//puregogen:function symbol=SDL_CreateHapticEffect
-	iCreateHapticEffect func(haptic *Haptic, effect *HapticEffect) int32
+	iCreateHapticEffect func(haptic *Haptic, effect *HapticEffect) HapticEffectID
 
 	// SDL_UpdateHapticEffect => Update the properties of an effect.
 	//
 	//puregogen:function symbol=SDL_UpdateHapticEffect
-	iUpdateHapticEffect func(haptic *Haptic, effect int32, data *HapticEffect) bool
+	iUpdateHapticEffect func(haptic *Haptic, effect HapticEffectID, data *HapticEffect) bool
 
 	// SDL_RunHapticEffect => Run the haptic effect on its associated haptic device.
 	//
 	//puregogen:function symbol=SDL_RunHapticEffect
-	iRunHapticEffect func(haptic *Haptic, effect int32, iterations uint32) bool
+	iRunHapticEffect func(haptic *Haptic, effect HapticEffectID, iterations uint32) bool
 
 	// SDL_StopHapticEffect => Stop the haptic effect on its associated haptic device.
 	//
 	//puregogen:function symbol=SDL_StopHapticEffect
-	iStopHapticEffect func(haptic *Haptic, effect int32) bool
+	iStopHapticEffect func(haptic *Haptic, effect HapticEffectID) bool
 
 	// SDL_DestroyHapticEffect => Destroy a haptic effect on the device.
 	//
 	//puregogen:function symbol=SDL_DestroyHapticEffect
-	iDestroyHapticEffect func(haptic *Haptic, effect int32)
+	iDestroyHapticEffect func(haptic *Haptic, effect HapticEffectID)
 
 	// SDL_GetHapticEffectStatus => Get the status of the current effect on the specified haptic device.
 	//
 	//puregogen:function symbol=SDL_GetHapticEffectStatus
-	iGetHapticEffectStatus func(haptic *Haptic, effect int32) bool
+	iGetHapticEffectStatus func(haptic *Haptic, effect HapticEffectID) bool
 
 	// SDL_SetHapticGain => Set the global gain of the specified haptic device.
 	//
@@ -4233,6 +4278,11 @@ var (
 	//
 	//puregogen:function symbol=SDL_CreateRendererWithProperties
 	iCreateRendererWithProperties func(props PropertiesID) *Renderer
+
+	// SDL_CreateGPURenderer => Create a 2D GPU rendering context for a window, with support for the specified shader format.
+	//
+	//puregogen:function symbol=SDL_CreateGPURenderer
+	iCreateGPURenderer func(window *Window, format_flags GPUShaderFormat, device **GPUDevice) *Renderer
 
 	// SDL_CreateSoftwareRenderer => Create a 2D software rendering context for a surface.
 	//
@@ -4584,6 +4634,11 @@ var (
 	//puregogen:function symbol=SDL_RenderTexture9Grid
 	iRenderTexture9Grid func(renderer *Renderer, texture *Texture, srcrect *FRect, left_width float32, right_width float32, top_height float32, bottom_height float32, scale float32, dstrect *FRect) bool
 
+	// SDL_RenderTexture9GridTiled => Perform a scaled copy using the 9-grid algorithm to the current rendering target at subpixel precision.
+	//
+	//puregogen:function symbol=SDL_RenderTexture9GridTiled
+	iRenderTexture9GridTiled func(renderer *Renderer, texture *Texture, srcrect *FRect, left_width float32, right_width float32, top_height float32, bottom_height float32, scale float32, dstrect *FRect, tileScale float32) bool
+
 	// SDL_RenderGeometry => Render a list of triangles, optionally using a texture and indices into the vertex array Color and alpha modulation is done per vertex (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).
 	//
 	//puregogen:function symbol=SDL_RenderGeometry
@@ -4593,6 +4648,16 @@ var (
 	//
 	//puregogen:function symbol=SDL_RenderGeometryRaw
 	iRenderGeometryRaw func(renderer *Renderer, texture *Texture, xy *float32, xy_stride int32, color *FColor, color_stride int32, uv *float32, uv_stride int32, num_vertices int32, indices uintptr, num_indices int32, size_indices int32) bool
+
+	// SDL_SetRenderTextureAddressMode => Set the texture addressing mode used in SDL_RenderGeometry().
+	//
+	//puregogen:function symbol=SDL_SetRenderTextureAddressMode
+	iSetRenderTextureAddressMode func(renderer *Renderer, u_mode TextureAddressMode, v_mode TextureAddressMode) bool
+
+	// SDL_GetRenderTextureAddressMode => Get the texture addressing mode used in SDL_RenderGeometry().
+	//
+	//puregogen:function symbol=SDL_GetRenderTextureAddressMode
+	iGetRenderTextureAddressMode func(renderer *Renderer, u_mode *TextureAddressMode, v_mode *TextureAddressMode) bool
 
 	// SDL_RenderReadPixels => Read pixels from the current rendering target.
 	//
@@ -4653,6 +4718,36 @@ var (
 	//
 	//puregogen:function symbol=SDL_RenderDebugTextFormat
 	iRenderDebugTextFormat func(renderer *Renderer, x float32, y float32, fmt string) bool
+
+	// SDL_SetDefaultTextureScaleMode => Set default scale mode for new textures for given renderer.
+	//
+	//puregogen:function symbol=SDL_SetDefaultTextureScaleMode
+	iSetDefaultTextureScaleMode func(renderer *Renderer, scale_mode ScaleMode) bool
+
+	// SDL_GetDefaultTextureScaleMode => Get default texture scale mode of the given renderer.
+	//
+	//puregogen:function symbol=SDL_GetDefaultTextureScaleMode
+	iGetDefaultTextureScaleMode func(renderer *Renderer, scale_mode *ScaleMode) bool
+
+	// SDL_CreateGPURenderState => Create custom GPU render state.
+	//
+	//puregogen:function symbol=SDL_CreateGPURenderState
+	iCreateGPURenderState func(renderer *Renderer, desc *GPURenderStateDesc) *GPURenderState
+
+	// SDL_SetGPURenderStateFragmentUniforms => Set fragment shader uniform variables in a custom GPU render state.
+	//
+	//puregogen:function symbol=SDL_SetGPURenderStateFragmentUniforms
+	iSetGPURenderStateFragmentUniforms func(state *GPURenderState, slot_index uint32, data uintptr, length uint32) bool
+
+	// SDL_SetRenderGPUState => Set custom GPU render state.
+	//
+	//puregogen:function symbol=SDL_SetRenderGPUState
+	iSetRenderGPUState func(renderer *Renderer, state *GPURenderState) bool
+
+	// SDL_DestroyGPURenderState => Destroy custom GPU render state.
+	//
+	//puregogen:function symbol=SDL_DestroyGPURenderState
+	iDestroyGPURenderState func(state *GPURenderState)
 
 	// SDL_OpenTitleStorage => Opens up a read-only container for the application's filesystem.
 	//

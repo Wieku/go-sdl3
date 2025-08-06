@@ -233,9 +233,10 @@ const (
 type ScaleMode uint32
 
 const (
-	SCALEMODE_INVALID ScaleMode = 4294967295
-	SCALEMODE_NEAREST ScaleMode = 0
-	SCALEMODE_LINEAR  ScaleMode = 1
+	SCALEMODE_INVALID  ScaleMode = 4294967295
+	SCALEMODE_NEAREST  ScaleMode = 0
+	SCALEMODE_LINEAR   ScaleMode = 1
+	SCALEMODE_PIXELART ScaleMode = 2
 )
 
 // SDL_FlipMode - The flip mode.
@@ -288,6 +289,19 @@ const (
 	FLASH_CANCEL        FlashOperation = 0
 	FLASH_BRIEFLY       FlashOperation = 1
 	FLASH_UNTIL_FOCUSED FlashOperation = 2
+)
+
+// SDL_ProgressState - Window progress state
+// (https://wiki.libsdl.org/SDL3/SDL_ProgressState)
+type ProgressState uint32
+
+const (
+	PROGRESS_STATE_INVALID       ProgressState = 4294967295
+	PROGRESS_STATE_NONE          ProgressState = 0
+	PROGRESS_STATE_INDETERMINATE ProgressState = 1
+	PROGRESS_STATE_NORMAL        ProgressState = 2
+	PROGRESS_STATE_PAUSED        ProgressState = 3
+	PROGRESS_STATE_ERROR         ProgressState = 4
 )
 
 // SDL_GLAttr - An enumeration of OpenGL configuration attributes.
@@ -408,7 +422,8 @@ const (
 	GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_LEFT  GamepadType = 8
 	GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT GamepadType = 9
 	GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR  GamepadType = 10
-	GAMEPAD_TYPE_COUNT                        GamepadType = 11
+	GAMEPAD_TYPE_GAMECUBE                     GamepadType = 11
+	GAMEPAD_TYPE_COUNT                        GamepadType = 12
 )
 
 // SDL_GamepadButton - The list of buttons available on a gamepad
@@ -1401,6 +1416,17 @@ const (
 	TEXTUREACCESS_STATIC    TextureAccess = 0
 	TEXTUREACCESS_STREAMING TextureAccess = 1
 	TEXTUREACCESS_TARGET    TextureAccess = 2
+)
+
+// SDL_TextureAddressMode - The addressing mode for a texture when used in [SDL_RenderGeometry](SDL_RenderGeometry)().
+// (https://wiki.libsdl.org/SDL3/SDL_TextureAddressMode)
+type TextureAddressMode uint32
+
+const (
+	TEXTURE_ADDRESS_INVALID TextureAddressMode = 4294967295
+	TEXTURE_ADDRESS_AUTO    TextureAddressMode = 0
+	TEXTURE_ADDRESS_CLAMP   TextureAddressMode = 1
+	TEXTURE_ADDRESS_WRAP    TextureAddressMode = 2
 )
 
 // SDL_RendererLogicalPresentation - How the logical size is mapped to the output.

@@ -24,7 +24,7 @@ ENV IMAGE_VERSION=3.2.4
 ENV MIXER_VERSION=main
 
 # Clone SDL and satellite libraries
-RUN git clone --depth 1 --branch release-$SDL3_VERSION https://github.com/libsdl-org/SDL.git
+RUN git clone --depth 1 --branch main https://github.com/libsdl-org/SDL.git
 RUN git clone --recurse-submodules --branch release-$TTF_VERSION https://github.com/libsdl-org/SDL_ttf.git
 RUN git clone --recurse-submodules --branch release-$IMAGE_VERSION https://github.com/libsdl-org/SDL_image.git
 RUN git clone --recurse-submodules https://github.com/libsdl-org/SDL_mixer.git

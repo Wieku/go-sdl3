@@ -999,12 +999,12 @@ type GPURasterizerState struct {
 // SDL_GPUMultisampleState - A structure specifying the parameters of the graphics pipeline multisample state.
 // (https://wiki.libsdl.org/SDL3/SDL_GPUMultisampleState)
 type GPUMultisampleState struct {
-	SampleCount GPUSampleCount
-	SampleMask  uint32
-	EnableMask  bool
-	Padding1    uint8
-	Padding2    uint8
-	Padding3    uint8
+	SampleCount           GPUSampleCount
+	SampleMask            uint32
+	EnableMask            bool
+	EnableAlphaToCoverage bool
+	Padding2              uint8
+	Padding3              uint8
 }
 
 // SDL_GPUDepthStencilState - A structure specifying the parameters of the graphics pipeline depth stencil state.
@@ -1147,14 +1147,14 @@ type Haptic struct{}
 // SDL_HapticDirection - Structure that represents a haptic direction.
 // (https://wiki.libsdl.org/SDL3/SDL_HapticDirection)
 type HapticDirection struct {
-	Type uint8
+	Type HapticDirectionType
 	Dir  [3]int32
 }
 
 // SDL_HapticConstant - A structure containing a template for a Constant effect.
 // (https://wiki.libsdl.org/SDL3/SDL_HapticConstant)
 type HapticConstant struct {
-	Type         uint16
+	Type         HapticEffectType
 	Direction    HapticDirection
 	Length       uint32
 	Delay        uint16
@@ -1170,7 +1170,7 @@ type HapticConstant struct {
 // SDL_HapticPeriodic - A structure containing a template for a Periodic effect.
 // (https://wiki.libsdl.org/SDL3/SDL_HapticPeriodic)
 type HapticPeriodic struct {
-	Type         uint16
+	Type         HapticEffectType
 	Direction    HapticDirection
 	Length       uint32
 	Delay        uint16
@@ -1189,7 +1189,7 @@ type HapticPeriodic struct {
 // SDL_HapticCondition - A structure containing a template for a Condition effect.
 // (https://wiki.libsdl.org/SDL3/SDL_HapticCondition)
 type HapticCondition struct {
-	Type       uint16
+	Type       HapticEffectType
 	Direction  HapticDirection
 	Length     uint32
 	Delay      uint16
@@ -1206,7 +1206,7 @@ type HapticCondition struct {
 // SDL_HapticRamp - A structure containing a template for a Ramp effect.
 // (https://wiki.libsdl.org/SDL3/SDL_HapticRamp)
 type HapticRamp struct {
-	Type         uint16
+	Type         HapticEffectType
 	Direction    HapticDirection
 	Length       uint32
 	Delay        uint16
@@ -1223,7 +1223,7 @@ type HapticRamp struct {
 // SDL_HapticLeftRight - A structure containing a template for a Left/Right effect.
 // (https://wiki.libsdl.org/SDL3/SDL_HapticLeftRight)
 type HapticLeftRight struct {
-	Type           uint16
+	Type           HapticEffectType
 	Length         uint32
 	LargeMagnitude uint16
 	SmallMagnitude uint16
@@ -1232,7 +1232,7 @@ type HapticLeftRight struct {
 // SDL_HapticCustom - A structure containing a template for the [SDL_HAPTIC_CUSTOM](SDL_HAPTIC_CUSTOM) effect.
 // (https://wiki.libsdl.org/SDL3/SDL_HapticCustom)
 type HapticCustom struct {
-	Type         uint16
+	Type         HapticEffectType
 	Direction    HapticDirection
 	Length       uint32
 	Delay        uint16
@@ -1305,6 +1305,23 @@ type Texture struct {
 	H        int32
 	Refcount int32
 }
+
+// SDL_GPURenderStateDesc - GPU render state description.
+// (https://wiki.libsdl.org/SDL3/SDL_GPURenderStateDesc)
+type GPURenderStateDesc struct {
+	Version            uint32
+	FragmentShader     *GPUShader
+	NumSamplerBindings int32
+	SamplerBindings    *GPUTextureSamplerBinding
+	NumStorageTextures int32
+	StorageTextures    **GPUTexture
+	NumStorageBuffers  int32
+	StorageBuffers     **GPUBuffer
+}
+
+// SDL_GPURenderState - A custom GPU render state.
+// (https://wiki.libsdl.org/SDL3/SDL_GPURenderState)
+type GPURenderState struct{}
 
 // SDL_StorageInterface - Function interface for [SDL_Storage](SDL_Storage).
 // (https://wiki.libsdl.org/SDL3/SDL_StorageInterface)

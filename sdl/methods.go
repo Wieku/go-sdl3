@@ -4718,6 +4718,38 @@ func (window *Window) Renderer() *Renderer {
 	return iGetRenderer(window)
 }
 
+// SDL_SetWindowProgressState - Set the state of the progress bar for the given window's taskbar icon.
+// (https://wiki.libsdl.org/SDL3/SDL_SetWindowProgressState)
+func (window *Window) SetProgressState(state ProgressState) err {
+	if !iSetWindowProgressState(window, state) {
+		return internal.LastErr()
+	}
+
+	return nil
+}
+
+// SDL_GetWindowProgressState - Get the state of the progress bar for the given window's taskbar icon.
+// (https://wiki.libsdl.org/SDL3/SDL_GetWindowProgressState)
+func (window *Window) ProgressState() ProgressState {
+	return iGetWindowProgressState(window)
+}
+
+// SDL_SetWindowProgressValue - Set the value of the progress bar for the given window's taskbar icon.
+// (https://wiki.libsdl.org/SDL3/SDL_SetWindowProgressValue)
+func (window *Window) SetProgressValue(value float32) err {
+	if !iSetWindowProgressValue(window, value) {
+		return internal.LastErr()
+	}
+
+	return nil
+}
+
+// SDL_GetWindowProgressValue - Get the value of the progress bar for the given window's taskbar icon.
+// (https://wiki.libsdl.org/SDL3/SDL_GetWindowProgressValue)
+func (window *Window) ProgressValue() float32 {
+	return iGetWindowProgressValue(window)
+}
+
 // Scancode
 
 // SDL_GetKeyFromScancode - Get the key code corresponding to the given scancode according to the current keyboard layout.

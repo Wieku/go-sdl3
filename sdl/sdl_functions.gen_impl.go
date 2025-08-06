@@ -182,6 +182,8 @@ var (
 	_addr_SDL_SetAudioStreamInputChannelMap         uintptr
 	_addr_SDL_SetAudioStreamOutputChannelMap        uintptr
 	_addr_SDL_PutAudioStreamData                    uintptr
+	_addr_SDL_PutAudioStreamDataNoCopy              uintptr
+	_addr_SDL_PutAudioStreamPlanarData              uintptr
 	_addr_SDL_GetAudioStreamData                    uintptr
 	_addr_SDL_GetAudioStreamAvailable               uintptr
 	_addr_SDL_GetAudioStreamQueued                  uintptr
@@ -400,6 +402,8 @@ var (
 	_addr_SDL_SetWindowHitTest                      uintptr
 	_addr_SDL_SetWindowShape                        uintptr
 	_addr_SDL_FlashWindow                           uintptr
+	_addr_SDL_SetWindowProgressState                uintptr
+	_addr_SDL_GetWindowProgressState                uintptr
 	_addr_SDL_DestroyWindow                         uintptr
 	_addr_SDL_ScreenSaverEnabled                    uintptr
 	_addr_SDL_EnableScreenSaver                     uintptr
@@ -605,6 +609,7 @@ var (
 	_addr_SDL_GetMouseState                         uintptr
 	_addr_SDL_GetGlobalMouseState                   uintptr
 	_addr_SDL_GetRelativeMouseState                 uintptr
+	_addr_SDL_SetRelativeMouseTransform             uintptr
 	_addr_SDL_SetWindowRelativeMouseMode            uintptr
 	_addr_SDL_GetWindowRelativeMouseMode            uintptr
 	_addr_SDL_CaptureMouse                          uintptr
@@ -641,6 +646,7 @@ var (
 	_addr_SDL_EventEnabled                          uintptr
 	_addr_SDL_RegisterEvents                        uintptr
 	_addr_SDL_GetWindowFromEvent                    uintptr
+	_addr_SDL_GetEventDescription                   uintptr
 	_addr_SDL_GetBasePath                           uintptr
 	_addr_SDL_GetPrefPath                           uintptr
 	_addr_SDL_GetUserFolder                         uintptr
@@ -661,6 +667,7 @@ var (
 	_addr_SDL_GetGPUDriver                          uintptr
 	_addr_SDL_GetGPUDeviceDriver                    uintptr
 	_addr_SDL_GetGPUShaderFormats                   uintptr
+	_addr_SDL_GetGPUDeviceProperties                uintptr
 	_addr_SDL_CreateGPUGraphicsPipeline             uintptr
 	_addr_SDL_CreateGPUSampler                      uintptr
 	_addr_SDL_CreateGPUTexture                      uintptr
@@ -830,6 +837,7 @@ var (
 	_addr_SDL_CreateWindowAndRenderer               uintptr
 	_addr_SDL_CreateRenderer                        uintptr
 	_addr_SDL_CreateRendererWithProperties          uintptr
+	_addr_SDL_CreateGPURenderer                     uintptr
 	_addr_SDL_CreateSoftwareRenderer                uintptr
 	_addr_SDL_GetRenderer                           uintptr
 	_addr_SDL_GetRenderWindow                       uintptr
@@ -890,6 +898,8 @@ var (
 	_addr_SDL_RenderTextureAffine                   uintptr
 	_addr_SDL_RenderGeometry                        uintptr
 	_addr_SDL_RenderGeometryRaw                     uintptr
+	_addr_SDL_SetRenderTextureAddressMode           uintptr
+	_addr_SDL_GetRenderTextureAddressMode           uintptr
 	_addr_SDL_RenderReadPixels                      uintptr
 	_addr_SDL_RenderPresent                         uintptr
 	_addr_SDL_DestroyTexture                        uintptr
@@ -900,6 +910,12 @@ var (
 	_addr_SDL_AddVulkanRenderSemaphores             uintptr
 	_addr_SDL_SetRenderVSync                        uintptr
 	_addr_SDL_GetRenderVSync                        uintptr
+	_addr_SDL_SetDefaultTextureScaleMode            uintptr
+	_addr_SDL_GetDefaultTextureScaleMode            uintptr
+	_addr_SDL_CreateGPURenderState                  uintptr
+	_addr_SDL_SetGPURenderStateFragmentUniforms     uintptr
+	_addr_SDL_SetRenderGPUState                     uintptr
+	_addr_SDL_DestroyGPURenderState                 uintptr
 	_addr_SDL_OpenTitleStorage                      uintptr
 	_addr_SDL_OpenUserStorage                       uintptr
 	_addr_SDL_OpenFileStorage                       uintptr
@@ -1641,6 +1657,14 @@ func initialize() {
 	_addr_SDL_PutAudioStreamData, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_PutAudioStreamData")
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_PutAudioStreamData")
+	}
+	_addr_SDL_PutAudioStreamDataNoCopy, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_PutAudioStreamDataNoCopy")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_PutAudioStreamDataNoCopy")
+	}
+	_addr_SDL_PutAudioStreamPlanarData, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_PutAudioStreamPlanarData")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_PutAudioStreamPlanarData")
 	}
 	_addr_SDL_GetAudioStreamData, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_GetAudioStreamData")
 	if err != nil {
@@ -2514,6 +2538,14 @@ func initialize() {
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_FlashWindow")
 	}
+	_addr_SDL_SetWindowProgressState, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_SetWindowProgressState")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_SetWindowProgressState")
+	}
+	_addr_SDL_GetWindowProgressState, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_GetWindowProgressState")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_GetWindowProgressState")
+	}
 	_addr_SDL_DestroyWindow, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_DestroyWindow")
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_DestroyWindow")
@@ -3334,6 +3366,10 @@ func initialize() {
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_GetRelativeMouseState")
 	}
+	_addr_SDL_SetRelativeMouseTransform, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_SetRelativeMouseTransform")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_SetRelativeMouseTransform")
+	}
 	_addr_SDL_SetWindowRelativeMouseMode, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_SetWindowRelativeMouseMode")
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_SetWindowRelativeMouseMode")
@@ -3478,6 +3514,10 @@ func initialize() {
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_GetWindowFromEvent")
 	}
+	_addr_SDL_GetEventDescription, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_GetEventDescription")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_GetEventDescription")
+	}
 	_addr_SDL_GetBasePath, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_GetBasePath")
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_GetBasePath")
@@ -3557,6 +3597,10 @@ func initialize() {
 	_addr_SDL_GetGPUShaderFormats, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_GetGPUShaderFormats")
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_GetGPUShaderFormats")
+	}
+	_addr_SDL_GetGPUDeviceProperties, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_GetGPUDeviceProperties")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_GetGPUDeviceProperties")
 	}
 	_addr_SDL_CreateGPUGraphicsPipeline, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_CreateGPUGraphicsPipeline")
 	if err != nil {
@@ -4234,6 +4278,10 @@ func initialize() {
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_CreateRendererWithProperties")
 	}
+	_addr_SDL_CreateGPURenderer, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_CreateGPURenderer")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_CreateGPURenderer")
+	}
 	_addr_SDL_CreateSoftwareRenderer, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_CreateSoftwareRenderer")
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_CreateSoftwareRenderer")
@@ -4474,6 +4522,14 @@ func initialize() {
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_RenderGeometryRaw")
 	}
+	_addr_SDL_SetRenderTextureAddressMode, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_SetRenderTextureAddressMode")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_SetRenderTextureAddressMode")
+	}
+	_addr_SDL_GetRenderTextureAddressMode, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_GetRenderTextureAddressMode")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_GetRenderTextureAddressMode")
+	}
 	_addr_SDL_RenderReadPixels, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_RenderReadPixels")
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_RenderReadPixels")
@@ -4513,6 +4569,30 @@ func initialize() {
 	_addr_SDL_GetRenderVSync, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_GetRenderVSync")
 	if err != nil {
 		panic("cannot puregogen.OpenSymbol: SDL_GetRenderVSync")
+	}
+	_addr_SDL_SetDefaultTextureScaleMode, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_SetDefaultTextureScaleMode")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_SetDefaultTextureScaleMode")
+	}
+	_addr_SDL_GetDefaultTextureScaleMode, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_GetDefaultTextureScaleMode")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_GetDefaultTextureScaleMode")
+	}
+	_addr_SDL_CreateGPURenderState, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_CreateGPURenderState")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_CreateGPURenderState")
+	}
+	_addr_SDL_SetGPURenderStateFragmentUniforms, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_SetGPURenderStateFragmentUniforms")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_SetGPURenderStateFragmentUniforms")
+	}
+	_addr_SDL_SetRenderGPUState, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_SetRenderGPUState")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_SetRenderGPUState")
+	}
+	_addr_SDL_DestroyGPURenderState, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_DestroyGPURenderState")
+	if err != nil {
+		panic("cannot puregogen.OpenSymbol: SDL_DestroyGPURenderState")
 	}
 	_addr_SDL_OpenTitleStorage, err = puregogen.OpenSymbol(_hnd_sdl, "SDL_OpenTitleStorage")
 	if err != nil {
@@ -5754,6 +5834,19 @@ func initialize() {
 		runtime.KeepAlive(stream)
 		return __r0
 	}
+	iPutAudioStreamDataNoCopy = func(stream *AudioStream, buf uintptr, len int32, callback AudioStreamDataCompleteCallback, userdata uintptr) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_PutAudioStreamDataNoCopy, uintptr(unsafe.Pointer(stream)), uintptr(buf), uintptr(len), uintptr(callback), uintptr(userdata))
+		__r0 := uint8(_r0) != 0
+		runtime.KeepAlive(stream)
+		return __r0
+	}
+	iPutAudioStreamPlanarData = func(stream *AudioStream, channel_buffers *uintptr, num_channels int32, num_samples int32) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_PutAudioStreamPlanarData, uintptr(unsafe.Pointer(stream)), uintptr(unsafe.Pointer(channel_buffers)), uintptr(num_channels), uintptr(num_samples))
+		__r0 := uint8(_r0) != 0
+		runtime.KeepAlive(stream)
+		runtime.KeepAlive(channel_buffers)
+		return __r0
+	}
 	iGetAudioStreamData = func(stream *AudioStream, buf uintptr, len int32) int32 {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_GetAudioStreamData, uintptr(unsafe.Pointer(stream)), uintptr(buf), uintptr(len))
 		__r0 := int32(_r0)
@@ -5940,16 +6033,16 @@ func initialize() {
 		runtime.KeepAlive(palette)
 		return __r0
 	}
-	iGetRGB = func(pixel uint32, format *PixelFormatDetails, palette *Palette, r *uint8, g *uint8, b *uint8) {
-		purego.SyscallN(_addr_SDL_GetRGB, uintptr(pixel), uintptr(unsafe.Pointer(format)), uintptr(unsafe.Pointer(palette)), uintptr(unsafe.Pointer(r)), uintptr(unsafe.Pointer(g)), uintptr(unsafe.Pointer(b)))
+	iGetRGB = func(pixelvalue uint32, format *PixelFormatDetails, palette *Palette, r *uint8, g *uint8, b *uint8) {
+		purego.SyscallN(_addr_SDL_GetRGB, uintptr(pixelvalue), uintptr(unsafe.Pointer(format)), uintptr(unsafe.Pointer(palette)), uintptr(unsafe.Pointer(r)), uintptr(unsafe.Pointer(g)), uintptr(unsafe.Pointer(b)))
 		runtime.KeepAlive(format)
 		runtime.KeepAlive(palette)
 		runtime.KeepAlive(r)
 		runtime.KeepAlive(g)
 		runtime.KeepAlive(b)
 	}
-	iGetRGBA = func(pixel uint32, format *PixelFormatDetails, palette *Palette, r *uint8, g *uint8, b *uint8, a *uint8) {
-		purego.SyscallN(_addr_SDL_GetRGBA, uintptr(pixel), uintptr(unsafe.Pointer(format)), uintptr(unsafe.Pointer(palette)), uintptr(unsafe.Pointer(r)), uintptr(unsafe.Pointer(g)), uintptr(unsafe.Pointer(b)), uintptr(unsafe.Pointer(a)))
+	iGetRGBA = func(pixelvalue uint32, format *PixelFormatDetails, palette *Palette, r *uint8, g *uint8, b *uint8, a *uint8) {
+		purego.SyscallN(_addr_SDL_GetRGBA, uintptr(pixelvalue), uintptr(unsafe.Pointer(format)), uintptr(unsafe.Pointer(palette)), uintptr(unsafe.Pointer(r)), uintptr(unsafe.Pointer(g)), uintptr(unsafe.Pointer(b)), uintptr(unsafe.Pointer(a)))
 		runtime.KeepAlive(format)
 		runtime.KeepAlive(palette)
 		runtime.KeepAlive(r)
@@ -7121,6 +7214,20 @@ func initialize() {
 		runtime.KeepAlive(window)
 		return __r0
 	}
+	iSetWindowProgressState = func(window *Window, state ProgressState) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_SetWindowProgressState, uintptr(unsafe.Pointer(window)), uintptr(state))
+		__r0 := uint8(_r0) != 0
+		runtime.KeepAlive(window)
+		return __r0
+	}
+	iGetWindowProgressState = func(window *Window) ProgressState {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_GetWindowProgressState, uintptr(unsafe.Pointer(window)))
+		__r0 := ProgressState(_r0)
+		runtime.KeepAlive(window)
+		return __r0
+	}
+	purego.RegisterLibFunc(&iSetWindowProgressValue, _hnd_sdl, "SDL_SetWindowProgressValue")
+	purego.RegisterLibFunc(&iGetWindowProgressValue, _hnd_sdl, "SDL_GetWindowProgressValue")
 	iDestroyWindow = func(window *Window) {
 		purego.SyscallN(_addr_SDL_DestroyWindow, uintptr(unsafe.Pointer(window)))
 		runtime.KeepAlive(window)
@@ -8263,6 +8370,11 @@ func initialize() {
 	}
 	purego.RegisterLibFunc(&iWarpMouseInWindow, _hnd_sdl, "SDL_WarpMouseInWindow")
 	purego.RegisterLibFunc(&iWarpMouseGlobal, _hnd_sdl, "SDL_WarpMouseGlobal")
+	iSetRelativeMouseTransform = func(callback MouseMotionTransformCallback, userdata uintptr) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_SetRelativeMouseTransform, uintptr(callback), uintptr(userdata))
+		__r0 := uint8(_r0) != 0
+		return __r0
+	}
 	iSetWindowRelativeMouseMode = func(window *Window, enabled bool) bool {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_SetWindowRelativeMouseMode, uintptr(unsafe.Pointer(window)), puregogen.BoolToUintptr(enabled))
 		__r0 := uint8(_r0) != 0
@@ -8444,6 +8556,13 @@ func initialize() {
 		runtime.KeepAlive(event)
 		return __r0
 	}
+	iGetEventDescription = func(event *Event, buf string, buflen int32) int32 {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_GetEventDescription, uintptr(unsafe.Pointer(event)), uintptr(unsafe.Pointer(puregogen.BytePtrFromString(buf))), uintptr(buflen))
+		__r0 := int32(_r0)
+		runtime.KeepAlive(event)
+		runtime.KeepAlive(buf)
+		return __r0
+	}
 	iGetBasePath = func() string {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_GetBasePath)
 		__r0 := "" + puregogen.BytePtrToString(*(**byte)(unsafe.Pointer(&_r0)))
@@ -8558,6 +8677,12 @@ func initialize() {
 	iGetGPUShaderFormats = func(device *GPUDevice) GPUShaderFormat {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_GetGPUShaderFormats, uintptr(unsafe.Pointer(device)))
 		__r0 := GPUShaderFormat(_r0)
+		runtime.KeepAlive(device)
+		return __r0
+	}
+	iGetGPUDeviceProperties = func(device *GPUDevice) PropertiesID {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_GetGPUDeviceProperties, uintptr(unsafe.Pointer(device)))
+		__r0 := PropertiesID(_r0)
 		runtime.KeepAlive(device)
 		return __r0
 	}
@@ -9101,37 +9226,37 @@ func initialize() {
 		runtime.KeepAlive(effect)
 		return __r0
 	}
-	iCreateHapticEffect = func(haptic *Haptic, effect *HapticEffect) int32 {
+	iCreateHapticEffect = func(haptic *Haptic, effect *HapticEffect) HapticEffectID {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_CreateHapticEffect, uintptr(unsafe.Pointer(haptic)), uintptr(unsafe.Pointer(effect)))
-		__r0 := int32(_r0)
+		__r0 := HapticEffectID(_r0)
 		runtime.KeepAlive(haptic)
 		runtime.KeepAlive(effect)
 		return __r0
 	}
-	iUpdateHapticEffect = func(haptic *Haptic, effect int32, data *HapticEffect) bool {
+	iUpdateHapticEffect = func(haptic *Haptic, effect HapticEffectID, data *HapticEffect) bool {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_UpdateHapticEffect, uintptr(unsafe.Pointer(haptic)), uintptr(effect), uintptr(unsafe.Pointer(data)))
 		__r0 := uint8(_r0) != 0
 		runtime.KeepAlive(haptic)
 		runtime.KeepAlive(data)
 		return __r0
 	}
-	iRunHapticEffect = func(haptic *Haptic, effect int32, iterations uint32) bool {
+	iRunHapticEffect = func(haptic *Haptic, effect HapticEffectID, iterations uint32) bool {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_RunHapticEffect, uintptr(unsafe.Pointer(haptic)), uintptr(effect), uintptr(iterations))
 		__r0 := uint8(_r0) != 0
 		runtime.KeepAlive(haptic)
 		return __r0
 	}
-	iStopHapticEffect = func(haptic *Haptic, effect int32) bool {
+	iStopHapticEffect = func(haptic *Haptic, effect HapticEffectID) bool {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_StopHapticEffect, uintptr(unsafe.Pointer(haptic)), uintptr(effect))
 		__r0 := uint8(_r0) != 0
 		runtime.KeepAlive(haptic)
 		return __r0
 	}
-	iDestroyHapticEffect = func(haptic *Haptic, effect int32) {
+	iDestroyHapticEffect = func(haptic *Haptic, effect HapticEffectID) {
 		purego.SyscallN(_addr_SDL_DestroyHapticEffect, uintptr(unsafe.Pointer(haptic)), uintptr(effect))
 		runtime.KeepAlive(haptic)
 	}
-	iGetHapticEffectStatus = func(haptic *Haptic, effect int32) bool {
+	iGetHapticEffectStatus = func(haptic *Haptic, effect HapticEffectID) bool {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_GetHapticEffectStatus, uintptr(unsafe.Pointer(haptic)), uintptr(effect))
 		__r0 := uint8(_r0) != 0
 		runtime.KeepAlive(haptic)
@@ -9489,6 +9614,13 @@ func initialize() {
 	iCreateRendererWithProperties = func(props PropertiesID) *Renderer {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_CreateRendererWithProperties, uintptr(props))
 		__r0 := (*Renderer)(*(*unsafe.Pointer)(unsafe.Pointer(&_r0)))
+		return __r0
+	}
+	iCreateGPURenderer = func(window *Window, format_flags GPUShaderFormat, device **GPUDevice) *Renderer {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_CreateGPURenderer, uintptr(unsafe.Pointer(window)), uintptr(format_flags), uintptr(unsafe.Pointer(device)))
+		__r0 := (*Renderer)(*(*unsafe.Pointer)(unsafe.Pointer(&_r0)))
+		runtime.KeepAlive(window)
+		runtime.KeepAlive(device)
 		return __r0
 	}
 	iCreateSoftwareRenderer = func(surface *Surface) *Renderer {
@@ -9916,6 +10048,7 @@ func initialize() {
 	}
 	purego.RegisterLibFunc(&iRenderTextureTiled, _hnd_sdl, "SDL_RenderTextureTiled")
 	purego.RegisterLibFunc(&iRenderTexture9Grid, _hnd_sdl, "SDL_RenderTexture9Grid")
+	purego.RegisterLibFunc(&iRenderTexture9GridTiled, _hnd_sdl, "SDL_RenderTexture9GridTiled")
 	iRenderGeometry = func(renderer *Renderer, texture *Texture, vertices *Vertex, num_vertices int32, indices *int32, num_indices int32) bool {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_RenderGeometry, uintptr(unsafe.Pointer(renderer)), uintptr(unsafe.Pointer(texture)), uintptr(unsafe.Pointer(vertices)), uintptr(num_vertices), uintptr(unsafe.Pointer(indices)), uintptr(num_indices))
 		__r0 := uint8(_r0) != 0
@@ -9933,6 +10066,20 @@ func initialize() {
 		runtime.KeepAlive(xy)
 		runtime.KeepAlive(color)
 		runtime.KeepAlive(uv)
+		return __r0
+	}
+	iSetRenderTextureAddressMode = func(renderer *Renderer, u_mode TextureAddressMode, v_mode TextureAddressMode) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_SetRenderTextureAddressMode, uintptr(unsafe.Pointer(renderer)), uintptr(u_mode), uintptr(v_mode))
+		__r0 := uint8(_r0) != 0
+		runtime.KeepAlive(renderer)
+		return __r0
+	}
+	iGetRenderTextureAddressMode = func(renderer *Renderer, u_mode *TextureAddressMode, v_mode *TextureAddressMode) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_GetRenderTextureAddressMode, uintptr(unsafe.Pointer(renderer)), uintptr(unsafe.Pointer(u_mode)), uintptr(unsafe.Pointer(v_mode)))
+		__r0 := uint8(_r0) != 0
+		runtime.KeepAlive(renderer)
+		runtime.KeepAlive(u_mode)
+		runtime.KeepAlive(v_mode)
 		return __r0
 	}
 	iRenderReadPixels = func(renderer *Renderer, rect *Rect) *Surface {
@@ -9995,6 +10142,43 @@ func initialize() {
 	}
 	purego.RegisterLibFunc(&iRenderDebugText, _hnd_sdl, "SDL_RenderDebugText")
 	purego.RegisterLibFunc(&iRenderDebugTextFormat, _hnd_sdl, "SDL_RenderDebugTextFormat")
+	iSetDefaultTextureScaleMode = func(renderer *Renderer, scale_mode ScaleMode) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_SetDefaultTextureScaleMode, uintptr(unsafe.Pointer(renderer)), uintptr(scale_mode))
+		__r0 := uint8(_r0) != 0
+		runtime.KeepAlive(renderer)
+		return __r0
+	}
+	iGetDefaultTextureScaleMode = func(renderer *Renderer, scale_mode *ScaleMode) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_GetDefaultTextureScaleMode, uintptr(unsafe.Pointer(renderer)), uintptr(unsafe.Pointer(scale_mode)))
+		__r0 := uint8(_r0) != 0
+		runtime.KeepAlive(renderer)
+		runtime.KeepAlive(scale_mode)
+		return __r0
+	}
+	iCreateGPURenderState = func(renderer *Renderer, desc *GPURenderStateDesc) *GPURenderState {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_CreateGPURenderState, uintptr(unsafe.Pointer(renderer)), uintptr(unsafe.Pointer(desc)))
+		__r0 := (*GPURenderState)(*(*unsafe.Pointer)(unsafe.Pointer(&_r0)))
+		runtime.KeepAlive(renderer)
+		runtime.KeepAlive(desc)
+		return __r0
+	}
+	iSetGPURenderStateFragmentUniforms = func(state *GPURenderState, slot_index uint32, data uintptr, length uint32) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_SetGPURenderStateFragmentUniforms, uintptr(unsafe.Pointer(state)), uintptr(slot_index), uintptr(data), uintptr(length))
+		__r0 := uint8(_r0) != 0
+		runtime.KeepAlive(state)
+		return __r0
+	}
+	iSetRenderGPUState = func(renderer *Renderer, state *GPURenderState) bool {
+		_r0, _, _ := purego.SyscallN(_addr_SDL_SetRenderGPUState, uintptr(unsafe.Pointer(renderer)), uintptr(unsafe.Pointer(state)))
+		__r0 := uint8(_r0) != 0
+		runtime.KeepAlive(renderer)
+		runtime.KeepAlive(state)
+		return __r0
+	}
+	iDestroyGPURenderState = func(state *GPURenderState) {
+		purego.SyscallN(_addr_SDL_DestroyGPURenderState, uintptr(unsafe.Pointer(state)))
+		runtime.KeepAlive(state)
+	}
 	iOpenTitleStorage = func(override string, props PropertiesID) *Storage {
 		_r0, _, _ := purego.SyscallN(_addr_SDL_OpenTitleStorage, uintptr(unsafe.Pointer(puregogen.BytePtrFromString(override))), uintptr(props))
 		__r0 := (*Storage)(*(*unsafe.Pointer)(unsafe.Pointer(&_r0)))

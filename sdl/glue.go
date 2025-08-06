@@ -683,6 +683,14 @@ type TimerCallback uintptr
 // (https://wiki.libsdl.org/SDL3/SDL_NSTimerCallback)
 type NSTimerCallback uintptr
 
+// SDL_MouseMotionTransformCallback - A callback used to transform mouse motion delta from raw values
+// (https://wiki.libsdl.org/SDL3/SDL_MouseMotionTransformCallback)
+type MouseMotionTransformCallback uintptr
+
+// SDL_AudioStreamDataCompleteCallback - A callback that fires for completed SDL_PutAudioStreamDataNoCopy() data.
+// (https://wiki.libsdl.org/SDL3/SDL_AudioStreamDataCompleteCallback)
+type AudioStreamDataCompleteCallback uintptr
+
 // SDL_main_func - The prototype for the application's main() function
 // (https://wiki.libsdl.org/SDL3/SDL_main_func)
 type main_func uintptr
